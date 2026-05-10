@@ -121,9 +121,9 @@ npm install
 ```
 
 ### 2. Configure environment
-Copy the example file and replace the placeholders:
+From inside `Inkbound/backend`, copy the example file and replace the placeholders if needed:
 ```bash
-cp backend/.env.example backend/.env
+cp .env.example .env
 ```
 
 ### 3. Database setup
@@ -139,18 +139,12 @@ npm start         # production
 
 Server will be available at `http://localhost:3000`.
 
-### 5. Open the frontend
-Recommended URL:
+### 5. Open the app
 ```bash
 http://localhost:3000
 ```
 
-You can also open this file directly in a browser:
-```bash
-Inkbound/frontend/index.html
-```
-
-For marking and normal use, open `http://localhost:3000` so the frontend and backend run together and all data writes appear in MongoDB Compass.
+Open the app through `http://localhost:3000` rather than the local `frontend/index.html` file. That keeps the frontend and backend running together, so all carts, orders, reviews, wishlists, and admin changes appear in MongoDB Compass.
 
 ---
 
