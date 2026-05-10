@@ -8,7 +8,7 @@
 
 Most online bookstores separate readers into narrow shelves: novels in one place, manga in another, light novels somewhere else, and graphic novels treated like an afterthought. Inkbound solves this by giving every format a single curated storefront with fast search, genre-first browsing, saved carts, order history, and a polished black-and-white luxury interface.
 
-It is a full-stack e-commerce Single Page Application built with a React-enhanced frontend, an Express/MongoDB backend, and a static fallback mode so the storefront still works directly from `frontend/index.html` without running the server.
+It is a full-stack e-commerce Single Page Application built with a React-enhanced frontend and an Express/MongoDB backend. The app is intended to run through `http://localhost:3000` so carts, orders, reviews, wishlists, users, and admin actions are persisted in MongoDB.
 
 ---
 
@@ -22,7 +22,7 @@ It is a full-stack e-commerce Single Page Application built with a React-enhance
 | Auth       | JWT, bcryptjs, role-based admin access          |
 | Styling    | Pure CSS with CSS variables design system       |
 | Assets     | 500 local Open Library cover images             |
-| Offline    | Static catalog + localStorage API fallback      |
+| Data flow  | Mongo-backed live actions with local catalog assets |
 
 ---
 
@@ -42,7 +42,7 @@ It is a full-stack e-commerce Single Page Application built with a React-enhance
 - **Orders** — checkout creates saved orders, clears the cart, and shows the user’s order history
 - **Admin panel** — admin dashboard with all user carts, all orders from every account, product count, order count, users, and revenue
 - **CRUD coverage** — users, products, cart items, wishlists, reviews, and orders are created, read, updated, and/or deleted through Express routes and MongoDB collections
-- **Static fallback** — when opened via `file://`, `api.js` serves products, users, carts, wishlists, orders, reviews, and admin data from localStorage
+- **Mongo-first live actions** — store actions use the Express API and MongoDB so Compass reflects carts, orders, reviews, wishlists, users, and admin changes
 - **Accessibility** — labelled inputs, ARIA dialog roles, keyboard Escape handling, focusable product covers, and readable light/dark contrast
 - **Responsive** — mobile cart drawer, two-column mobile product cards, adaptive hero, and tablet/desktop grid layouts
 
@@ -51,7 +51,7 @@ It is a full-stack e-commerce Single Page Application built with a React-enhance
 ## Folder Structure
 
 ```
-fiona2/
+Inkbound/
 ├── backend/
 │   ├── config/
 │   │   ├── db.js                  # Legacy MySQL connection pool
@@ -94,7 +94,7 @@ fiona2/
 │   │   ├── openlibrary-covers/    # 500 local book cover images
 │   │   └── placeholder.svg        # Fallback cover
 │   ├── js/
-│   │   ├── api.js                 # Backend API client + static fallback API
+│   │   ├── api.js                 # Backend API client
 │   │   ├── app.js                 # App state, event handlers, checkout flow
 │   │   ├── catalog.js             # Static 500-title catalog
 │   │   ├── react-widgets.js       # React 18 dashboard island
@@ -116,7 +116,7 @@ fiona2/
 
 ### 1. Install backend dependencies
 ```bash
-cd fiona2/backend
+cd Inkbound/backend
 npm install
 ```
 
@@ -131,7 +131,7 @@ MongoDB seeds automatically the first time the backend starts. The app creates t
 
 ### 4. Start the backend server
 ```bash
-cd fiona2/backend
+cd Inkbound/backend
 npm run dev       # development with nodemon
 # or
 npm start         # production
@@ -147,23 +147,23 @@ http://localhost:3000
 
 You can also open this file directly in a browser:
 ```bash
-fiona2/frontend/index.html
+Inkbound/frontend/index.html
 ```
 
-When opened directly as a local file, the frontend calls `http://localhost:3000/api` if the MongoDB backend is running. If the backend cannot be reached, it uses the static fallback catalog and localStorage so the demo remains usable.
+For marking and normal use, open `http://localhost:3000` so the frontend and backend run together and all data writes appear in MongoDB Compass.
 
 ---
 
 ## Demo Accounts
 
-Static fallback mode includes a demo admin account for marking and walkthroughs only:
+The MongoDB seed includes a demo admin account for marking and walkthroughs:
 
 ```text
 Email:    admin@inkbound.com
 Password: admin123
 ```
 
-Normal users can be created from the Login / Register modal. Their carts, wishlists, and orders are saved in localStorage when using static mode.
+Normal users can be created from the Login / Register modal. Their carts, wishlists, reviews, and orders are saved in MongoDB when the app is running through `http://localhost:3000`.
 
 The submitted repository does not track `backend/.env`; real secrets belong only in local environment files.
 
@@ -201,13 +201,13 @@ This submission is being completed individually by **Arpit Goyal**.
 
 ## Challenges Overcome
 
-**Static API Fallback** — The project originally depended on a running backend, which caused `Failed to fetch` errors when opening `frontend/index.html` directly. I solved this by building a static API layer inside `api.js` that mirrors the backend endpoints for products, auth, carts, wishlists, orders, reviews, and admin data using `localStorage`.
+**Mongo-First API Flow** — The project previously had a static browser fallback, which could make orders appear successful without writing to MongoDB if the backend was offline. I changed the live app to require the Express/MongoDB API by default so visible store actions match Compass data.
 
 **500 Unique Books with Real Covers** — The first large catalog pass accidentally repeated variants of the same books. The catalog was rebuilt around 500 unique titles and paired with local Open Library cover images so cards display actual book covers instead of random placeholders.
 
 **User-Specific Cart Persistence** — Guest carts and logged-in user carts were initially easy to mix up on the same browser. The session logic now uses deterministic user-specific cart keys once a user is logged in, while guests still get isolated UUID-based sessions.
 
-**Order History and Admin Visibility** — Checkout previously returned success without persisting orders in static mode. Orders are now written to localStorage, user order history reads them back, and the admin panel can view orders across every account.
+**Order History and Admin Visibility** — Checkout now writes orders to MongoDB, user order history reads them back from the API, and the admin panel can view orders across every account.
 
 **Theme Transition Polish** — Light/dark mode originally changed component colors at different times, making the UI feel jarring. The theme toggle now uses the View Transitions API when available, with a CSS fallback that transitions the page as a coherent surface.
 
