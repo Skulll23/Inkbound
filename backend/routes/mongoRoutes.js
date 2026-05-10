@@ -1,13 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const path = require('path');
 const { connectMongo } = require('../config/mongo');
 
 const catalogExport = require('../../database/catalog_export.json');
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'inkbound_jwt_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex');
 const JWT_EXPIRES = '7d';
 const ADMIN_HASH = '$2b$10$anXWZyf0cS/DUehl88f4Z.XOt3u6Ed3gLjvqf82Zcsl4F0xZdXCWW';
 

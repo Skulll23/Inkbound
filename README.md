@@ -54,39 +54,14 @@ It is a full-stack e-commerce Single Page Application built with a React-enhance
 Inkbound/
 ├── backend/
 │   ├── config/
-│   │   ├── db.js                  # Legacy MySQL connection pool
 │   │   └── mongo.js               # MongoDB connection helper
-│   ├── controllers/
-│   │   ├── adminController.js     # Admin user-cart visibility
-│   │   ├── authController.js      # Register, login, JWT issue
-│   │   ├── cartController.js      # Cart CRUD
-│   │   └── productController.js   # Product listing, filters, search
-│   ├── middleware/
-│   │   └── auth.js                # verifyToken + admin guard
-│   ├── models/
-│   │   ├── cartModel.js           # Cart SQL helpers
-│   │   ├── productModel.js        # Product SQL helpers
-│   │   └── userModel.js           # User SQL helpers
 │   ├── routes/
-│   │   ├── mongoRoutes.js         # Active MongoDB API routes
-│   │   ├── adminRoutes.js         # Legacy MySQL analytics/admin routes
-│   │   ├── authRoutes.js          # /auth/register, /auth/login, /auth/me
-│   │   ├── cartRoutes.js          # /cart CRUD endpoints
-│   │   ├── orderRoutes.js         # Checkout + user order history
-│   │   ├── productRoutes.js       # Catalog, categories, autocomplete, similar
-│   │   ├── reviewRoutes.js        # Product reviews
-│   │   └── wishlistRoutes.js      # Wishlist endpoints
-│   ├── scripts/
-│   │   ├── fetchCovers.js         # Cover download helper
-│   │   ├── migrate.js             # Database migration runner
-│   │   └── seedBooks*.js          # Seed scripts
+│   │   └── mongoRoutes.js         # Auth, product, cart, order, review, wishlist, and admin API routes
 │   ├── server.js                  # Express app entry
 │   ├── .env.example               # Safe environment template
 │   └── package.json
 ├── database/
-│   ├── schema.sql                 # Legacy MySQL schema and seed data
-│   ├── catalog_export.json        # Full 500-title JSON export
-│   └── migrate_add_auth.sql       # Auth/order-related migration
+│   └── catalog_export.json        # Full 500-title JSON export
 ├── frontend/
 │   ├── css/
 │   │   └── style.css              # Complete responsive luxury UI system
@@ -187,8 +162,8 @@ This submission is being completed individually by **Arpit Goyal**.
 |------|-------|
 | Frontend SPA and interaction logic | `frontend/index.html`, `frontend/js/app.js`, `frontend/js/ui.js`, `frontend/js/api.js`, `frontend/js/react-widgets.js` |
 | Visual design and responsive UI | `frontend/css/style.css`, `preview.png` |
-| Catalog and assets | `frontend/js/catalog.js`, `frontend/images/`, `backend/scripts/fetchCovers.js`, `backend/scripts/seedBooks*.js` |
-| Backend/API/database | `backend/server.js`, `backend/routes/mongoRoutes.js`, `backend/config/mongo.js`, `backend/middleware/`, `database/catalog_export.json`, `database/schema.sql`, `database/migrate_add_auth.sql` |
+| Catalog and assets | `frontend/js/catalog.js`, `frontend/images/`, `database/catalog_export.json` |
+| Backend/API/database | `backend/server.js`, `backend/routes/mongoRoutes.js`, `backend/config/mongo.js`, `database/catalog_export.json` |
 | Documentation/submission material | `README.md`, `.gitignore`, `backend/.env.example` |
 
 ---
