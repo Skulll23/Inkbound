@@ -40,7 +40,7 @@ It is a full-stack e-commerce Single Page Application built with a React-enhance
 - **Accounts** — register, log in, persist sessions, user-specific carts, wishlists, and order history
 - **Wishlist** — save titles for later and add them to the cart from a side drawer
 - **Orders** — checkout creates saved orders, clears the cart, and shows the user’s order history
-- **Admin panel** — admin dashboard with all user carts, all orders from every account, product count, order count, users, and revenue
+- **Admin panel** — admin dashboard with all user carts through a user details page, all orders from every account, product management in its own tab, stock signals, user management, reviews, and revenue
 - **CRUD coverage** — users, products, cart items, wishlists, reviews, and orders are created, read, updated, and/or deleted through Express routes and MongoDB collections
 - **Mongo-first live actions** — store actions use the Express API and MongoDB so Compass reflects carts, orders, reviews, wishlists, users, and admin changes
 - **Accessibility** — labelled inputs, ARIA dialog roles, keyboard Escape handling, focusable product covers, and readable light/dark contrast
@@ -156,17 +156,17 @@ The submitted repository does not track `backend/.env`; real secrets belong only
 
 ## Workload Allocation
 
-This submission is being completed individually by **Arpit Goyal**.
+The group split the work across concept/design, frontend interaction, backend/database logic, and final integration. Arpit Goyal handled the largest implementation and integration workload, while the other members owned clearly defined design, catalog, UI, and documentation areas.
 
-| Area | Files |
-|------|-------|
-| Frontend SPA and interaction logic | `frontend/index.html`, `frontend/js/app.js`, `frontend/js/ui.js`, `frontend/js/api.js`, `frontend/js/react-widgets.js` |
-| Visual design and responsive UI | `frontend/css/style.css`, `preview.png` |
-| Catalog and assets | `frontend/js/catalog.js`, `frontend/images/`, `database/catalog_export.json` |
-| Backend/API/database | `backend/server.js`, `backend/routes/mongoRoutes.js`, `backend/config/mongo.js`, `database/catalog_export.json` |
-| Documentation/submission material | `README.md`, `.gitignore`, `backend/.env.example` |
+| Member | Main ownership area | Specific contribution |
+|--------|---------------------|-----------------------|
+| **Fiona Wang** | Original concept, visual direction, and catalog foundation | Created the original bookstore concept, design direction, initial HTML/CSS frontend structure, visual identity, product catalog curation, cover image collection, Goodreads-based descriptions, and early database schema/seed-data planning. Fiona's catalog work began as a 509-title curation pass and was refined into the submitted 500-title MongoDB export. |
+| **Arpit Goyal** | Full-stack backend, data persistence, admin, and integration | Built the backend architecture and API layer, including Express routes for products, cart, auth, orders, wishlist, reviews, and admin; migrated the live submission to MongoDB; implemented JWT authentication with bcrypt password hashing; handled cart session isolation, checkout persistence, admin analytics, search autocomplete, pagination, similar-book recommendations, and overall system integration. |
+| **Lia Jabson** | Frontend state, browsing tools, responsive UX, and documentation | Implemented and refined product browsing behavior including sort controls by price/rating/title/newest, load-more pagination, price range filtering, search autocomplete dropdown behavior, product grid heart buttons, skeleton loading animations, toast notifications, responsive mobile layout, slide-in cart drawer behavior, and README documentation support. |
+| **Yasheita Varma** | Frontend feature polish, reader account tools, and theme behavior | Implemented and refined wishlist UI with side panel, order history modal, product detail modal enhancements, reviews and star picker, "You Might Also Like" strip, light/dark mode toggle with synchronized transitions, and the out-of-stock/low-stock badge system. |
 
 ---
+
 
 ## Challenges Overcome
 

@@ -3,7 +3,8 @@
 const API_BASE = window.location.protocol === 'file:'
   ? 'http://localhost:3000/api'
   : '/api';
-function clearStaticSession() {
+
+function clearLegacySession() {
   localStorage.removeItem('inkbound_token');
   localStorage.removeItem('inkbound_user');
 }
@@ -42,7 +43,7 @@ function getSessionId() {
 function getToken() {
   const token = localStorage.getItem('inkbound_token');
   if (token?.startsWith('static-token-')) {
-    clearStaticSession();
+    clearLegacySession();
     return null;
   }
   return token;
@@ -52,7 +53,7 @@ function removeToken()   { localStorage.removeItem('inkbound_token'); }
 
 function getStoredUser() {
   if (localStorage.getItem('inkbound_token')?.startsWith('static-token-')) {
-    clearStaticSession();
+    clearLegacySession();
     return null;
   }
   try { return JSON.parse(localStorage.getItem('inkbound_user') || 'null'); }
